@@ -4,43 +4,50 @@ Date
 Course
 */
 
-include <stdio.h>
+/* You will need to implement the following helper functions in separate files as mentioned:
+
+game_of_life.c:
+
+next_generation(): Computes the next generation of the grid.
+
+game_of_life_rule(): Determines the next state of a cell based on its neighbors.
+
+print_grid(): Prints the grid to the console.
+
+
+arrays.c:
+
+malloc_2d(): Allocates memory for a 2D grid.
+
+free_2d(): Frees memory for the 2D grid.
+
+
+utils.c:
+
+initialize_grid_random(): Initializes the grid with random live or dead cells.
+
+initialize_grid_static(): Optionally, you could create this function to initialize the grid with a predefined static pattern.*/
+
+#include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <stdbool.h>
+#include "game_of_life.h"
+#include "arrays.h"
+#include "utils.h"
 
 // Function prototypes
-void generate_random_numbers(int *numbers, int count, unsigned int seed);
-void save_random_numbers_to_file(const char *filename, int *numbers, int count);
-void load_random_numbers_from_file(const char *filename, int *numbers, int count);
-void print_random_numbers(int *numbers, int count);
+void print_usage();
 
-int main() {
-    // Define how many random numbers we want to generate
-    int count = 10;
-    int numbers[count]; // Array to store generated numbers
-
-    // Use the current time as a seed for randomness 
-    // do not change this otherwise you will fail the test cases
-    unsigned int seed = time(NULL); 
-
-    // Generate random numbers using LCG (Linear Congruential Generator)
-    generate_random_numbers(numbers, count, seed);
-
-    // Print the random numbers
-    printf("Generated random numbers:\n");
-    print_random_numbers(numbers, count);
-
-    // Save the random numbers to a binary file
-    save_random_numbers_to_file("random_numbers.dat", numbers, count);
-    printf("\nRandom numbers saved to 'random_numbers.dat'.\n");
-
-    // Load the numbers back from the file
-    int loaded_numbers[count];
-    load_random_numbers_from_file("random_numbers.dat", loaded_numbers, count);
-
-    // Print loaded numbers
-    printf("\nLoaded random numbers from file:\n");
-    print_random_numbers(loaded_numbers, count);
-
+int main(int argc, char *argv[]) {
+   
+    if (argc != 4) {
+        print_usage();
+        return 1;
+    }
+      // Allocate memory for the grid
+     // Initialize the grid with random values (you can modify to static patterns if needed)
+     // Simulate for the specified number of generations
+   
+    
     return 0;
 }
