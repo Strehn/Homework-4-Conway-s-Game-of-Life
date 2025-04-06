@@ -1,49 +1,45 @@
-# Compiler settings
 CC = gcc
-CFLAGS = -Wall -g
-
-# Directories
-SRC_DIR = src
-OBJ_DIR = obj
-BIN_DIR = bin
+CFLAGS = -Wall -Wextra -g
+LDFLAGS = 
+EXEC = bin/game_of_life
 
 # Source files
-SRC_FILES = $(SRC_DIR)/main.c \
-            $(SRC_DIR)/game_of_life.c \
-            $(SRC_DIR)/arrays.c \
-            $(SRC_DIR)/utils.c
+SRC = src/main.c src/picture.c src/rules.c src/arrays.c
+OBJ = $(SRC:.c=.o)
 
-# Object files
-OBJ_FILES = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+# Directories
+OBJ_DIR = obj
+BIN_DIR = bin
+SRC_DIR = src
+TEST_SCRIPT = test.sh
 
-# Output binary name
-OUTPUT = $(BIN_DIR)/game_of_life
+# Targets
 
-# Default target: build the program
-all: $(OUTPUT)
+# Default target to build everything
+all: $(EXEC)
 
-# Create the binary
-$(OUTPUT): $(OBJ_FILES)
-	$(CC) $(CFLAGS) -o $@ $^
+# Compile the game_of_life executable
+$(EXEC): $(OBJ)
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(OBJ) -o $(EXEC) $(LDFLAGS)
 
-# Create the object directory if it doesn't exist
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
-# Compile .c files to .o files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+# Compile source files into object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Clean up build files
+# Clean up object files and the executable
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	rm -f $(EXEC)
 
-# Run the program with test parameters
-run: $(OUTPUT)
-	./$(OUTPUT) 20 10 5
+# Run the tests using the test.sh script
+test: $(EXEC)
+	@echo "Running tests..."
+	./$(TEST_SCRIPT)
 
-# Ensure the output directory exists
-$(BIN_DIR):
-	mkdir -p $(BIN_DIR)
+# Ensure the program is built before running tests
+build: $(EXEC)
 
-.PHONY: all clean run
+# Phony targets (these don't represent real files)
+.PHONY: all clean test build
