@@ -29,6 +29,7 @@ generations: The number of generations to simulate.
 # Output Format:
 For each generation, print the grid with . representing a dead cell (0) and X representing a live cell (1).
 
+```
 Example:
 $ ./executable 5 5 5
 Generation 1:
@@ -65,7 +66,7 @@ Generation 5:
 ..X..
 .....
 .....
-
+```
 # Program Structure:
 Your program should be split into the following files:
 
@@ -92,6 +93,7 @@ initialize_grid_random(bool **grid, int width, int height); - Randomly initializ
 initialize_grid_static(bool **grid, int width, int height); - Optionally, allows for initializing the grid to a predefined state (useful for testing).
 
 # Example Output:
+```
 For a 5x5 grid with 5 generations:
 $ ./executable 5 5 5
 Generation 1:
@@ -202,7 +204,7 @@ Generation 6:
 ..........
 ..........
 ..........
-
+```
 # Additional Notes:
 Edge Handling: Cells on the edges of the grid have fewer than 8 neighbors. For edge cells, treat out-of-bound positions as dead cells (false).
 
